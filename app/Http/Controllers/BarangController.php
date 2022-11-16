@@ -21,7 +21,7 @@ class BarangController extends Controller
             "kode" => 'required|unique:barangs,kode,' . $request->id,
         ]);
 
-        $data = Barang::create([
+        $data = DB::table('barangs')->create([
             "kode" => $request->kode,
             "nama_barang" => $request->nama_barang,
             "jumlah_barang" => $request->jumlah_barang,
@@ -31,19 +31,19 @@ class BarangController extends Controller
     }
     public function EditBarang($id)
     {
-        $data = Barang::find($id);
+        $data = DB::table('barangs')->find($id);
         return view('barang.edit_barang', compact('data'));
     }
 
     public function EditStore(Request $request, $id)
     {
-        $data = Barang::find($id);
+        $data = DB::table('barangs')->find($id);
         $data->update([
             "kode" => $request->kode,
             "nama_barang" => $request->nama_barang,
             "harga" => $request->harga
         ]);
-        $barang = Barang::where('kode', $request->kode)->first();
+        $barang = DB::table('barangs')->where('kode', $request->kode)->first();
         $barang->jumlah_barang += $request->tambah_stok;
         $barang->save();
 
@@ -52,7 +52,7 @@ class BarangController extends Controller
 
     public function Delete($id)
     {
-        $data = Barang::find($id);
+        $data = DB::table('barangs')->find($id);
         $data->delete();
 
         return redirect()->route('TambahBarang');

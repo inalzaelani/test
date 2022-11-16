@@ -25,20 +25,19 @@
       
       <h5>Customer</h5>
 
-      <div class="form-group col-md-3">
+      <div class="form-group">
         <div class="input-group-prepend">
-            <span>Kode</span>
           </div>
           <select class="form-select" aria-label="Default select example" name="cust_id" required>
-            <option value="">Pilih Kode Customer</option>
+            <option value="">Pilih Customer</option>
             @foreach ($data2 as $item)
                 @if(isset($item))
-                        <option value="{{ $item->kode }}">{{ $item->kode }}</option>
+                        <option value="{{ $item->kode }}">{{ $item->kode }}|| {{ $item->nama_customer }} || No Telp (+62){{ $item->no_telp }}</option>
                 @endif
                 @endforeach
           </select>
         </div>
-
+{{-- 
     <div class="form-group col-md-3">
       
         <div class="input-group-prepend">
@@ -52,7 +51,7 @@
           <span>No Telp</span>
         </div>
             <input type="text" class="form-control form-control-sm" name="no_telp" id="no_telp" required>
-    </div>
+    </div> --}}
 
     <div class="container mt-3">
       <!-- Button trigger modal -->
