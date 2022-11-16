@@ -25,9 +25,7 @@ Route::get('/', function () {
 })->name('login');
 
 Route::group(['middleware' => ['auth']], function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard')->name('Dashboard');
-    });
+    Route::get('/dashboard', [LoginController::class, 'Dashboard']);
     Route::get('/transaksi', [SaleController::class, 'Transaksi'])->name('Transaksi');
 
     Route::get('/tambahbarang', [BarangController::class, 'TambahBarang'])->name('TambahBarang');

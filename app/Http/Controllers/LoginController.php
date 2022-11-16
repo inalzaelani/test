@@ -19,11 +19,11 @@ class LoginController extends Controller
     {
 
         Auth::logout();
-
-        // $request->session()->flush();
-        // $request->session()->invalidate();
-        // $request->session()->regenerateToken();
-
         return redirect('/');
+    }
+
+    public function Dashboard()
+    {
+        return view('dashboard');
     }
 }

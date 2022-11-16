@@ -6,6 +6,12 @@ use Carbon\carbon;
     $sum=0;
 @endphp
 <div class="container-fluid mt-3">
+
+    <div class="container" >
+        <form action="/transaksi" method="GET">
+            <p class="text-lg-end"><input type="search" name="search" placeholder="Cari...."></p>
+        </form>
+    </div>
     <h4>Daftar Transaksi</h4>
     <table class="table table-sm table-striped">
         <tr>

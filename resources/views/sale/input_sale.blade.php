@@ -29,9 +29,9 @@
         <div class="input-group-prepend">
             <span>Kode</span>
           </div>
-          <select class="form-select" aria-label="Default select example" name="cust_id" onchange="showCustomer(this.value)">
-            <option selected>Pilih Kode Customer</option>
-                @foreach ($data2 as $item)
+          <select class="form-select" aria-label="Default select example" name="cust_id" required>
+            <option value="">Pilih Kode Customer</option>
+            @foreach ($data2 as $item)
                 @if(isset($item))
                         <option value="{{ $item->kode }}">{{ $item->kode }}</option>
                 @endif
@@ -61,11 +61,11 @@
       </button>
     </div>
   
-
-  <div class="container">
+<div class="container">
+  <div class="table-responsive">
     <table class="table table-bordered">
       <thead>
-        <tr>
+        <tr lass="d-flex">
           <th scope="col" rowspan="2">Aksi</th>
           <th scope="col" rowspan="2">No</th>
           <th scope="col" rowspan="2">Kode barang</th>
@@ -110,8 +110,10 @@
          
     </table>
   </div>
+</div>
+  
 
-<div class="container">
+<div class="container m-auto">
   <p class="text-md">Jumlah Barang <input type="number" value="{{$sum2}}" name="qty" readonly> </p>
 
 
@@ -134,7 +136,6 @@
   </script>
 
     <p class="text-center"><button type="submit" class="btn btn-success">Simpan</button>
-    <button type="button" class="btn btn-danger">Batal</button></p>
 </div>
   
 </div>
@@ -165,7 +166,9 @@
               @endif
             @endforeach
           </select>
-
+          @error('jumlah_barang')
+          <div class="error">Stok tidak mencukupi</div>
+          @enderror
           Jumlah Barang
           <div class="input-group flex-nowrap mt-2">
             <input type="number" class="form-control" placeholder="Jumlah Barang" aria-describedby="addon-wrapping" name="jumlah_barang">

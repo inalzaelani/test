@@ -14,12 +14,18 @@ use Illuminate\Support\Facades\DB;
 
 class SaleController extends Controller
 {
-    public function Transaksi()
+    public function Transaksi(Request $request)
     {
-        $data =  DB::table('customers')
-            ->join('sales',  'sales.cust_id', '=', 'customers.kode')->paginate(5);
+        if ($request->has('search')) {
+            $data =  DB::table('customers')
+                ->join('sales',  'sales.cust_id', '=', 'customers.kode')->where('sales.kode', 'like', "%" . $request->search . "%")->paginate(5);
+        } else {
+            $data =  DB::table('customers')
+                ->join('sales',  'sales.cust_id', '=', 'customers.kode')->paginate(5);
+        }
         return view("sale.transaksi")->with('data', $data);
     }
+
     public function TambahSale()
     {
         $q = DB::table('sales')->select(DB::raw('MAX(RIGHT(kode,4))as code'));
@@ -69,7 +75,7 @@ class SaleController extends Controller
 
         $barang = Barang::where('kode', $request->kode_barang)->first();
         if ($barang->jumlah_barang < $request->jumlah_barang) {
-            $this->session->set_flashdata('error', 'Stok tidak mencukupi');
+            return redirect()->route('TambahSale')->with('error');
         } else {
             $barang->jumlah_barang -= $request->jumlah_barang;
             $barang->save();
@@ -111,7 +117,7 @@ class SaleController extends Controller
         ]);
         $barang = Barang::where('kode', $data->barang_id)->first();
         if ($barang->jumlah_barang < $request->qty) {
-            $this->session->set_flashdata('error', 'Stok tidak mencukupi');
+            return redirect()->route('TambahSale')->with('error');
         } else {
             $barang->jumlah_barang -= $request->qty;
             $barang->save();
